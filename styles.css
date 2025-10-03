@@ -53,6 +53,7 @@ nav p {
     margin-right: 20px;
     border-radius: 50%; /* Make the image circular */
     object-fit: cover;
+    flex-shrink: 0; /* Ensures image doesn't shrink on small screens */
 }
 
 .hearder-cool h1 {
@@ -164,14 +165,23 @@ select {
 
 /* Specific styling for the 'Bank Operation' inputs/select */
 /* Group the select, input, and button horizontally */
+.bank-operation-content {
+    /* Use a helper class for better readability and targeting */
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Target the specific div in Bank Operation for layout change */
 .container > div:last-child > div > div:last-child > div:nth-child(3) > div {
+    /* Apply the bank-operation-content structure */
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
 .container > div:last-child > div > div:last-child > div:nth-child(3) > div select,
-.container > div:last-child > div > div:last-child > div:nth-child(3) > div input[type="text"] {
+.container > div:last-child > div > div:last-child > div:nth-child(3) > div input[type="number"] {
     flex-grow: 1; /* Make the input and select take up available space */
     width: auto; /* Override the 100% width above */
 }
@@ -186,6 +196,7 @@ button, input[type="submit"] {
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s ease;
+    flex-shrink: 0; /* Prevent the button from shrinking */
 }
 
 button:hover, input[type="submit"]:hover {
@@ -202,15 +213,84 @@ form button[type="button"]:hover {
     background-color: #0056b3;
 }
 
-/* Responsive adjustments (for smaller screens) */
+/* ======================================================= */
+/* --- Responsive Adjustments (for smaller screens) --- */
+/* ======================================================= */
 @media (max-width: 768px) {
+    /* Stack the two main content columns vertically */
     .container > div:last-child {
-        flex-direction: column; /* Stack columns vertically on small screens */
+        flex-direction: column;
+        gap: 20px; /* Ensure spacing between the stacked blocks */
     }
 
+    /* Stack navigation items vertically and center-align them */
     nav {
         flex-direction: column;
         text-align: center;
         gap: 5px;
+    }
+
+    /* Adjust padding on the container for a better full-screen mobile look */
+    .container {
+        margin-top: 20px;
+        padding: 0 10px;
+    }
+
+    /* Make the header image stack above the text on small screens */
+    .hearder-cool {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hearder-cool img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    /* Ensure forms elements are stacked in the Bank Operation section */
+    .container > div:last-child > div > div:last-child > div:nth-child(3) > div {
+        flex-direction: column;
+        align-items: stretch; /* Stretch items to full width */
+    }
+
+    .container > div:last-child > div > div:last-child > div:nth-child(3) > div select,
+    .container > div:last-child > div > div:last-child > div:nth-child(3) > div input[type="number"],
+    .container > div:last-child > div > div:last-child > div:nth-child(3) > div button {
+        width: 100%; /* Make select, input, and button full width */
+        flex-grow: 0; /* Reset flex-grow */
+    }
+
+    /* Stack info cards (Account Information, Balance Information, etc.) vertically on very small screens */
+    .container > div:last-child > div > div:last-child > div {
+        flex-direction: column;
+        align-items: center; /* Center content when stacked */
+        text-align: center;
+    }
+
+    .container > div:last-child > div > div:last-child > div img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    /* Adjust the form layout inside the cards for mobile */
+    .container > div:last-child > div > div:last-child > div form {
+        width: 100%;
+    }
+}
+
+/* --- Additional Responsive Breakpoint for larger phones/smaller tablets --- */
+@media (max-width: 480px) {
+    /* Reduce padding and margins on the smallest devices */
+    .container {
+        padding: 0 5px;
+        margin: 15px auto;
+    }
+
+    nav {
+        padding: 10px 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
     }
 }
